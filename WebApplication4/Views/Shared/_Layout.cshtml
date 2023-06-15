@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApplication4.DB
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ATH Bike Rental System</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication4.styles.css" asp-append-version="true" />
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <img src="https://img.redro.pl/obrazy/rower-szosowy-logo-wektor-700-173217848.jpg" alt="Pasja informatyki" width="100px"><a class="navbar-brand" 
+                asp-area="" asp-controller="Home" asp-action="Index">ATH Bike Rental System</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="Index">Vehicle</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Rental" asp-action="Index">Rental</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Kontakt</a>
+                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Users" asp-controller="Reservations" asp-action="Create">Rezerwuj</a>
+                            </li>
+                        }
+
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item dropdown show">
+                                <a class="dropdown-toggle nav-link text-dark" href="#" data-toggle="dropdown">Admin</a>
+                                 <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="VehicleTypes" asp-action="Index"><i class="fas fa-box mr-2"></i>Dashboard</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="ApplicationRoles" asp-action="Index"><i class="fas fa-box mr-2"></i>Dodaj role</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="ApplicationUserRoles" asp-action="Index"><i class="fas fa-users mr-2"></i>Przypisz role</a>
+                                 </div>
+                            </li>
+                        }
+
+                       
+
+
+    
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - Bike Rental System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> Kontakt - 123 456 789
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/js/demo/chart-area-demo.js"></script>
+    <script src="~/js/demo/chart-pie-demo.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
